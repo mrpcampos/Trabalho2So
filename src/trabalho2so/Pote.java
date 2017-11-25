@@ -19,21 +19,26 @@ public class Pote {
         this.moedas = moedas;
         this.conectadoCom = new ArrayList<>();
     }
-    
-    public synchronized int pegarMoedas(){
-        switch (moedas){
-            case 0:        //Talvez colocar algo aqui para "fazer o cachorro dormir",     
-                return 0;  // da para tb se retornar zero fazer isso onde esse metodo é chamado
-            case 1:
-                moedas-=1;
-                return 1;
-            case 2:
-                moedas-=2;
-                return 2;
-            default:
-                moedas-=3;
-                return 3;
+    /**
+     * @param limite indicates how many more coins the dog can carry
+     * 
+     * 
+     * @return Return 0 if there's are no coins, or 1, 2, 3 according to how many
+     *         coins are in the pot and how many more can the dog carry
+     */
+    public synchronized int pegarMoedas(int limite){
+        int maximo = 3;
+        if(limite<=maximo){
+            maximo=limite;
         }
+        if(maximo<=moedas){
+            moedas-=maximo;
+            return maximo;
+        }else{
+            maximo=moedas;
+            moedas=0;
+        }
+        return maximo;
     }
     public synchronized void colocarMoeda(){
         moedas++;

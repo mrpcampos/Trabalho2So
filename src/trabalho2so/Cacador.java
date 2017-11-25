@@ -12,9 +12,14 @@ package trabalho2so;
 public class Cacador {
     Cachorro cachorros[];
     int moedas;
+    Cor cor;
 
-    public Cacador() {
-        this.cachorros = new Cachorro[2];
+    public Cacador(Cor cor) {
         this.moedas=0;
+        this.cor=cor;
+        this.cachorros = new Cachorro[2];
+        for(Cachorro c: cachorros){
+            c=new Cachorro(cor);
+        }
     }
 }

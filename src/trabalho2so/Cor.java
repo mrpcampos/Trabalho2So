@@ -9,19 +9,7 @@ package trabalho2so;
  *
  * @author Matheus
  */
-public class Cachorro implements Runnable{
-    
-    Cor cor;
-    int moedas;
-    
-    Cachorro(Cor cor) {
-        this.moedas=0;
-        this.cor=cor;
-    }
-
-    @Override
-    public void run() {
-        
-    }
+public enum Cor{
+    Amarelo, Azul, Verde
     
 }
