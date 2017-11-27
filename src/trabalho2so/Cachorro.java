@@ -13,10 +13,12 @@ public class Cachorro implements Runnable{
     
     Cor cor;
     int moedas;
+    int poteAtual;
     
     Cachorro(Cor cor) {
         this.moedas=0;
         this.cor=cor;
+        this.poteAtual=0;
     }
 
     @Override

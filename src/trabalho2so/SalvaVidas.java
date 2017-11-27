@@ -9,15 +9,22 @@ package trabalho2so;
  *
  * @author Matheus
  */
-public class SalvaVidas implements Runnable{
-    
-    public void colocarMoedas(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+public class SalvaVidas implements Runnable {
+
+    public void colocarMoedas() {
+
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean ever = true;
+        for (;ever;) {
+            try {
+                wait(200);
+            } catch (InterruptedException e) {
+                return;
+            }
+            Bosque.getInstance().colocarMoedas();
+        }
     }
 }

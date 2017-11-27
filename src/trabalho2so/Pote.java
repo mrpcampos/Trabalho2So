@@ -12,13 +12,27 @@ import java.util.ArrayList;
  * @author Matheus
  */
 public class Pote {
-    int moedas;
-    ArrayList<Pote> conectadoCom;
+    private int moedas;
+    private ArrayList<Pote> conectadoCom;
 
     public Pote(int moedas) {
         this.moedas = moedas;
         this.conectadoCom = new ArrayList<>();
     }
+
+    public ArrayList<Pote> getConectadoCom() {
+        return conectadoCom;
+    }
+    
+    public void addConecao(Pote pote){
+        conectadoCom.add(pote);
+    }
+
+    public int getMoedas() {
+        return moedas;
+    }
+    
+    
     /**
      * @param limite indicates how many more coins the dog can carry
      * 
