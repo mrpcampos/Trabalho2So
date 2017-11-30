@@ -6,6 +6,7 @@
 package trabalho2so;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -13,25 +14,14 @@ import java.util.ArrayList;
  */
 public class Pote {
     private int moedas;
-    private ArrayList<Pote> conectadoCom;
+    private final ArrayList<Integer> conectadoCom;
+
+    private final Random rd = new Random();
 
     public Pote(int moedas) {
         this.moedas = moedas;
         this.conectadoCom = new ArrayList<>();
     }
-
-    public ArrayList<Pote> getConectadoCom() {
-        return conectadoCom;
-    }
-    
-    public void addConecao(Pote pote){
-        conectadoCom.add(pote);
-    }
-
-    public int getMoedas() {
-        return moedas;
-    }
-    
     
     /**
      * @param limite indicates how many more coins the dog can carry
@@ -54,7 +44,29 @@ public class Pote {
         }
         return maximo;
     }
+    
+    public synchronized int trocarDePote(){
+        int poteSorteado = rd.nextInt(conectadoCom.size());
+        return conectadoCom.get(poteSorteado);
+    }
+    
     public synchronized void colocarMoeda(){
         moedas++;
+    }
+    
+    public synchronized boolean hasCoins(){
+        return moedas>0;
+    }
+    
+    public ArrayList<Integer> getConectadoCom() {
+        return conectadoCom;
+    }
+    
+    public void addConecao(Integer pote){
+        conectadoCom.add(pote);
+    }
+
+    public int getMoedas() {
+        return moedas;
     }
 }

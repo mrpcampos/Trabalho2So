@@ -9,22 +9,18 @@ package trabalho2so;
  *
  * @author Matheus
  */
-public class SalvaVidas implements Runnable {
+public class SalvaVidas extends Thread{
 
     public void colocarMoedas() {
-
+        Bosque.getInstance().colocarMoedas();
+        
     }
 
     @Override
     public void run() {
         boolean ever = true;
         for (;ever;) {
-            try {
-                wait(200);
-            } catch (InterruptedException e) {
-                return;
-            }
-            Bosque.getInstance().colocarMoedas();
+            colocarMoedas();
         }
     }
 }

@@ -10,9 +10,9 @@ package trabalho2so;
  * @author Matheus
  */
 public class Cacador {
-    Cachorro cachorros[];
-    int moedas;
-    Cor cor;
+    private Cachorro cachorros[];
+    private int moedas;
+    private final Cor cor;
 
     public Cacador(Cor cor) {
         this.moedas=0;
@@ -22,4 +22,9 @@ public class Cacador {
             c=new Cachorro(cor);
         }
     }
+
+    void soltarCachorro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -11,8 +11,8 @@ package trabalho2so;
  */
 public class ControladorPrincipal {
     private static ControladorPrincipal instance;
-    Bosque bosque;
-    Cacador cacadores[];
+    private Bosque bosque;
+    private Cacador cacadores[];
 
     private ControladorPrincipal() {
         this.bosque = Bosque.getInstance();
@@ -27,6 +27,20 @@ public class ControladorPrincipal {
             instance = new ControladorPrincipal();
         }
         return instance;
+    }
+
+    public void soltarOsCachorros() {
+        for(Cacador c : cacadores){
+            c.soltarCachorro();
+        }
+    }
+
+    public Bosque getBosque() {
+        return bosque;
+    }
+
+    public Cacador[] getCacadores() {
+        return cacadores;
     }
     
     

@@ -13,7 +13,9 @@ public class Trabalho2So {
 
     
     public static void main(String[] args) {
-        // TODO code application logic here
+        ControladorPrincipal instance = ControladorPrincipal.getInstance();
+        instance.soltarOsCachorros();
+        
     }
     
 }
