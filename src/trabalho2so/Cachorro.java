@@ -17,6 +17,7 @@ public class Cachorro extends Thread {
     private final Cor cor;
     private int moedas;
     private int poteAtual;
+    private final Cacador dono;
     private final int limite;
     private final long unidadeDeTempo;
 
@@ -25,9 +26,10 @@ public class Cachorro extends Thread {
     private final int limiteDono;
     private int moedasComDono;
 
-    public Cachorro(Cor cor) {
+    public Cachorro(Cacador cacador) {
+        this.dono=cacador;
         this.moedas = 0;
-        this.cor = cor;
+        this.cor = cacador.getCor();
         this.poteAtual = 0;
         this.limite = 20;
         this.unidadeDeTempo = 100; //Diz que cada unidade de tempo são 100 milisegundos
@@ -35,7 +37,7 @@ public class Cachorro extends Thread {
         this.bosque = Bosque.getInstance();
         this.tela = Tela.getInstance();
         this.limiteDono=50;
-        this.moedasComDono = 0;
+        this.moedasComDono = cacador.getMoedas();
     }
 
     private synchronized void entrar() {
@@ -61,7 +63,10 @@ public class Cachorro extends Thread {
     }
 
     private synchronized void sair() {
-
+        bosque.sair(this);
+        tela.cachorroSaiDoBosque(this);
+        dono.addMoedas(moedas);
+        moedas=0;
     }
 
     @Override

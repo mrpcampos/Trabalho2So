@@ -93,11 +93,13 @@ public class Bosque {
         return potes[pote].trocarDePote();
     }
 
-    public void sair() {
+    public void sair(Cachorro c) {
         /*Chamada pelo cachorro quando atinge o limite de moedas ou quando
         seu dono chegou a 50, deve encerrar a thread do cachorro e dar as 
         moedas para seu dono, ou chamar um método que faça isso
-         */
+        */
+        c.setPoteAtual(0);
+        
     }
 
     /**

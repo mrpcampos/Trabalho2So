@@ -10,19 +10,19 @@ package trabalho2so;
  * @author Matheus
  */
 public class Cacador {
-    private Cachorro cachorros[];
+    private final Cachorro cachorros[];
     private int moedas;
     private final Cor cor;
-    
+
     private boolean cachorroDescancado;
-    
+
     public Cacador(Cor cor) {
         this.moedas=0;
         this.cor=cor;
         this.cachorros = new Cachorro[2];
         cachorroDescancado=true;
         for(Cachorro c: cachorros){
-            c=new Cachorro(cor);
+            c=new Cachorro(this);
         }
     }
 
@@ -37,6 +37,9 @@ public class Cacador {
     public void addMoedas(int moedas) {
         this.moedas += moedas;
         atualizaCachorros();
+        if(moedas>=50){
+            soltarCachorro();
+        }
     }
     
     void soltarCachorro() {
