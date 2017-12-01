@@ -13,7 +13,6 @@ public class SalvaVidas extends Thread{
 
     public void colocarMoedas() {
         Bosque.getInstance().colocarMoedas();
-        
     }
 
     @Override

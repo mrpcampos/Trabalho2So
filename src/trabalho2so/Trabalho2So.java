@@ -15,7 +15,6 @@ public class Trabalho2So {
     public static void main(String[] args) {
         ControladorPrincipal instance = ControladorPrincipal.getInstance();
         instance.soltarOsCachorros();
-        
     }
     
 }

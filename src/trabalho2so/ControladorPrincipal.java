@@ -13,6 +13,7 @@ public class ControladorPrincipal {
     private static ControladorPrincipal instance;
     private Bosque bosque;
     private Cacador cacadores[];
+    private Tela tela;
 
     private ControladorPrincipal() {
         this.bosque = Bosque.getInstance();
@@ -33,6 +34,8 @@ public class ControladorPrincipal {
         for(Cacador c : cacadores){
             c.soltarCachorro();
         }
+        bosque.comecarRefil();
+        tela.mostraPlacar(cacadores);
     }
 
     public Bosque getBosque() {

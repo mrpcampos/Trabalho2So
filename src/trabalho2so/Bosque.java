@@ -5,7 +5,6 @@
  */
 package trabalho2so;
 
-
 /**
  *
  * @author Matheus
@@ -14,10 +13,15 @@ public class Bosque {
 
     private static Bosque instance;
     private Pote potes[];
-    private SalvaVidas cachorroVermelho;
+    private final SalvaVidas cachorroVermelho;
 
     private Bosque() {
-        potes = new Pote[20];
+        potes = new Pote[21];
+        cachorroVermelho = new SalvaVidas();
+        for (int i=1; i<potes.length; i++) {
+            potes[i] = new Pote(i, 3);
+        }
+
         potes[1].addConecao(2);
         potes[1].addConecao(15);
         potes[2].addConecao(3);
@@ -95,18 +99,18 @@ public class Bosque {
         moedas para seu dono, ou chamar um método que faça isso
          */
     }
+
     /**
-     * Coloca uma moeda em cada pote vazio e acorda todos os cachorros
-     * que estiverem dormindo naquele pote.
-     * 
+     * Coloca uma moeda em cada pote vazio e acorda todos os cachorros que
+     * estiverem dormindo naquele pote.
+     *
      * É chamado pelo salva-vidas (cachorro vermelho) a cada .2 segundos.
      */
     public void colocarMoedas() {
         for (Pote p : potes) {
             if (p.getMoedas() == 0) {
                 p.colocarMoeda();
-                notifyAll();    //Confirmar se esse notify serve, fiz a 
-            }                   //primeira coisa que me pareceu certa
+            }
         }
     }
 
@@ -117,7 +121,11 @@ public class Bosque {
      *
      * @return how many coins the dog took from the pot
      */
-    public int pegarMoedas(int pote, int limite) {
-        return potes[pote].pegarMoedas(limite);
-   }
+    public int pegarMoedas(Cachorro c, int pote, int limite) {
+        return potes[pote].pegarMoedas(c, limite);
+    }
+    
+    public void comecarRefil(){
+        cachorroVermelho.start();
+    }
 }

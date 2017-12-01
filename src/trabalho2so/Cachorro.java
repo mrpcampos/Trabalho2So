@@ -18,53 +18,63 @@ public class Cachorro extends Thread {
     private int moedas;
     private int poteAtual;
     private final int limite;
-    Bosque bosque;
-    private long unidadeDeTempo;
+    private final long unidadeDeTempo;
+
+    private final Bosque bosque;
+    private final Tela tela;
+    private final int limiteDono;
+    private int moedasComDono;
 
     public Cachorro(Cor cor) {
-        this.bosque = Bosque.getInstance();
         this.moedas = 0;
         this.cor = cor;
         this.poteAtual = 0;
         this.limite = 20;
         this.unidadeDeTempo = 100; //Diz que cada unidade de tempo são 100 milisegundos
+
+        this.bosque = Bosque.getInstance();
+        this.tela = Tela.getInstance();
+        this.limiteDono=50;
+        this.moedasComDono = 0;
     }
 
     private synchronized void entrar() {
         esperar(1);
         bosque.entrar(this);
+        tela.cachorroEntraNoBosque(this);
     }
 
     private synchronized void pegarMoedas() {
         int moedasRecolhidas = -1;
-        while (moedasRecolhidas<=0) {
+        while (moedasRecolhidas <= 0) {
             esperar(1);
-            moedasRecolhidas = bosque.pegarMoedas(poteAtual, limite - moedas);
-            if (moedasRecolhidas == 0) {
-                esperar(60);
-            }else{
-                moedas+=moedasRecolhidas;
-            }
+            moedasRecolhidas = bosque.pegarMoedas(this, poteAtual, limite - moedas);
+            moedas += moedasRecolhidas;
+            tela.cachorroPegaMoedas(this, poteAtual, moedas);
         }
     }
 
     private synchronized void trocarDePote() {
         esperar(1);
         bosque.trocarDePote(poteAtual);
+        tela.cachorroTrocaDePote(this, poteAtual);
     }
 
-    private synchronized void sair(){
-        
+    private synchronized void sair() {
+
     }
-    
+
     @Override
     public void run() {
         entrar();
         pegarMoedas();
-        for (; moedas < limite;) {
+        int total = moedasComDono+moedas;
+        while (moedas < limite && limiteDono>total) {
             trocarDePote();
             pegarMoedas();
+            total = moedasComDono+moedas;
         }
+        sair();
     }
 
     public synchronized void esperar(int tempoEmUnidade) {
@@ -89,6 +99,14 @@ public class Cachorro extends Thread {
 
     public void setPoteAtual(int poteAtual) {
         this.poteAtual = poteAtual;
+    }
+
+    public void setMoedas(int moedas) {
+        this.moedas = moedas;
+    }
+
+    public void setMoedasComDono(int moedasComDono) {
+        this.moedasComDono = moedasComDono;
     }
 
 }

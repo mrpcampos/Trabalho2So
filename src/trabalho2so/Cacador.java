@@ -13,18 +13,46 @@ public class Cacador {
     private Cachorro cachorros[];
     private int moedas;
     private final Cor cor;
-
+    
+    private boolean cachorroDescancado;
+    
     public Cacador(Cor cor) {
         this.moedas=0;
         this.cor=cor;
         this.cachorros = new Cachorro[2];
+        cachorroDescancado=true;
         for(Cachorro c: cachorros){
             c=new Cachorro(cor);
         }
     }
 
+    public int getMoedas() {
+        return moedas;
+    }
+
+    public Cor getCor() {
+        return cor;
+    }
+
+    public void addMoedas(int moedas) {
+        this.moedas += moedas;
+        atualizaCachorros();
+    }
+    
     void soltarCachorro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(cachorroDescancado){
+            cachorros[0].start();
+            cachorroDescancado=false;
+        }else{
+            cachorros[1].start();
+            cachorroDescancado=true;
+        }
+    }
+
+    private void atualizaCachorros() {
+        for(Cachorro c : cachorros){
+            c.setMoedasComDono(moedas);
+        }
     }
 
 }
