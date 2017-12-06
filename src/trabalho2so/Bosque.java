@@ -110,7 +110,7 @@ public class Bosque {
      */
     public void colocarMoedas() {
         for (Pote p : potes) {
-            if (p.getMoedas() == 0) {
+            if (p != null && p.getMoedas() == 0) {
                 p.colocarMoeda();
             }
         }

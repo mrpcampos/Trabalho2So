@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Matheus
  */
-public class Cachorro extends Thread {
+public class Cachorro {
 
     private final Cor cor;
     private int moedas;
@@ -25,6 +25,8 @@ public class Cachorro extends Thread {
     private final Tela tela;
     private final int limiteDono;
     private int moedasComDono;
+    
+    private Thread ultimaThread;
 
     public Cachorro(Cacador cacador) {
         this.dono=cacador;
@@ -52,13 +54,13 @@ public class Cachorro extends Thread {
             esperar(1);
             moedasRecolhidas = bosque.pegarMoedas(this, poteAtual, limite - moedas);
             moedas += moedasRecolhidas;
-            tela.cachorroPegaMoedas(this, poteAtual, moedas);
+            tela.cachorroPegaMoedas(this, poteAtual, moedasRecolhidas);
         }
     }
 
     private synchronized void trocarDePote() {
         esperar(1);
-        bosque.trocarDePote(poteAtual);
+        this.poteAtual = bosque.trocarDePote(poteAtual);
         tela.cachorroTrocaDePote(this, poteAtual);
     }
 
@@ -69,17 +71,28 @@ public class Cachorro extends Thread {
         moedas=0;
     }
 
-    @Override
+    public void start(){
+    	this.ultimaThread = new Thread(this::run);
+    	this.ultimaThread.start();
+    }
+    
+    public void join(long millis) throws InterruptedException {
+    	if (ultimaThread != null)
+    		this.ultimaThread.join(millis);
+    }
+    
     public void run() {
-        entrar();
-        pegarMoedas();
-        int total = moedasComDono+moedas;
-        while (moedas < limite && limiteDono>total) {
-            trocarDePote();
+        if (ControladorPrincipal.getInstance().deveContinuar()){
+        	entrar();
             pegarMoedas();
-            total = moedasComDono+moedas;
+            int total = moedasComDono+moedas;
+            while (moedas < limite && limiteDono>total && ControladorPrincipal.getInstance().deveContinuar()) {
+                trocarDePote();
+                pegarMoedas();
+                total = moedasComDono+moedas;
+            }
+            sair();
         }
-        sair();
     }
 
     public synchronized void esperar(int tempoEmUnidade) {

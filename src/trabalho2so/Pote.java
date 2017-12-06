@@ -6,6 +6,7 @@
 package trabalho2so;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,8 +61,8 @@ public class Pote {
     }
 
     public int trocarDePote() {
-        int poteSorteado = rd.nextInt(conectadoCom.size());
-        return conectadoCom.get(poteSorteado);
+        Collections.shuffle(conectadoCom);
+        return conectadoCom.get(0);
     }
 
     public synchronized void colocarMoeda() {
