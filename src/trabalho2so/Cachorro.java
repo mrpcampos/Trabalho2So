@@ -25,7 +25,7 @@ public class Cachorro {
     private final Tela tela;
     private final int limiteDono;
     private int moedasComDono;
-    
+
     private Thread ultimaThread;
 
     public Cachorro(Cacador cacador) {
@@ -34,7 +34,7 @@ public class Cachorro {
         this.cor = cacador.getCor();
         this.poteAtual = 0;
         this.limite = 20;
-        this.unidadeDeTempo = 100; //Diz que cada unidade de tempo são 100 milisegundos
+        this.unidadeDeTempo = 10; //Diz que cada unidade de tempo são 100 milisegundos
 
         this.bosque = Bosque.getInstance();
         this.tela = Tela.getInstance();
@@ -75,12 +75,12 @@ public class Cachorro {
     	this.ultimaThread = new Thread(this::run);
     	this.ultimaThread.start();
     }
-    
+
     public void join(long millis) throws InterruptedException {
     	if (ultimaThread != null)
     		this.ultimaThread.join(millis);
     }
-    
+
     public void run() {
         if (ControladorPrincipal.getInstance().deveContinuar()){
         	entrar();

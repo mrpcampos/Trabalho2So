@@ -49,13 +49,13 @@ public class Cacador {
     void soltarCachorro() {
         if(cachorroDescancado){
         	cachorros[0].start();
-            cachorroDescancado=false;
+            cachorroDescancado = false;
         }else{
-        	cachorros[0].start();
-            cachorroDescancado=true;
+        	cachorros[1].start();
+            cachorroDescancado = true;
         }
     }
-    
+
 
     private void atualizaCachorros() {
         for(Cachorro c : cachorros){
