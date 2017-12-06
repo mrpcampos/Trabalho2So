@@ -16,13 +16,14 @@ public class Cacador {
 
     private boolean cachorroDescancado;
 
+
     public Cacador(Cor cor) {
         this.moedas=0;
         this.cor=cor;
         this.cachorros = new Cachorro[2];
         cachorroDescancado=true;
-        for(Cachorro c: cachorros){
-            c=new Cachorro(this);
+        for (int i = 0; i < cachorros.length; i++) {
+            cachorros[i] = new Cachorro(this);
         }
     }
 
@@ -36,21 +37,25 @@ public class Cacador {
 
     public void addMoedas(int moedas) {
         this.moedas += moedas;
+        Tela.getInstance().cacadorRecebeMoedas(this, moedas);
         atualizaCachorros();
-        if(moedas>=50){
+        if(this.moedas < 50){
             soltarCachorro();
+        } else {
+        	ControladorPrincipal.getInstance().matarThreads();
         }
     }
-    
+
     void soltarCachorro() {
         if(cachorroDescancado){
-            cachorros[0].start();
+        	cachorros[0].start();
             cachorroDescancado=false;
         }else{
-            cachorros[1].start();
+        	cachorros[0].start();
             cachorroDescancado=true;
         }
     }
+    
 
     private void atualizaCachorros() {
         for(Cachorro c : cachorros){

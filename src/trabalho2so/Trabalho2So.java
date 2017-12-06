@@ -11,8 +11,7 @@ package trabalho2so;
  */
 public class Trabalho2So {
 
-    
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         ControladorPrincipal instance = ControladorPrincipal.getInstance();
         instance.soltarOsCachorros();
     }

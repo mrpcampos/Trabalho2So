@@ -14,14 +14,14 @@ public class ControladorPrincipal {
     private static ControladorPrincipal instance;
     private final Bosque bosque;
     private final Cacador cacadores[];
-    private Tela tela;
+	private boolean continuar = true;
 
     private ControladorPrincipal() {
         this.bosque = Bosque.getInstance();
         this.cacadores = new Cacador[3];
-        cacadores[1] = new Cacador(Cor.Azul);
-        cacadores[2] = new Cacador(Cor.Amarelo);
-        cacadores[3] = new Cacador(Cor.Verde);
+        cacadores[0] = new Cacador(Cor.Azul);
+        cacadores[1] = new Cacador(Cor.Amarelo);
+        cacadores[2] = new Cacador(Cor.Verde);
     }
 
     public static ControladorPrincipal getInstance() {
@@ -35,24 +35,24 @@ public class ControladorPrincipal {
         cacadores[0].soltarCachorro();
         cacadores[1].soltarCachorro();
         cacadores[2].soltarCachorro();
-        
+
         bosque.comecarRefil();
-        //Falta ver qual das sequencias de threads acima acaba primeiro
-        //e encerrar todas as outras
-        
-        
-//        if(){
-//            
-//        }
-        
-        tela.mostraPlacar(cacadores);
     }
 
     public Bosque getBosque() {
         return bosque;
     }
 
+    public void matarThreads() {
+    	this.continuar = false;
+    	Tela.getInstance().mostraPlacar(cacadores);
+    }
+    
     public Cacador[] getCacadores() {
         return cacadores;
     }
+
+	public boolean deveContinuar() {
+		return this.continuar;
+	}
 }
