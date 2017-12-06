@@ -44,10 +44,10 @@ public class ControladorPrincipal {
     }
 
     public void matarThreads() {
-    	this.continuar = false;
     	Tela.getInstance().mostraPlacar(cacadores);
+        this.continuar = false;
     }
-    
+
     public Cacador[] getCacadores() {
         return cacadores;
     }
